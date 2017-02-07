@@ -1,0 +1,12 @@
+#!/usr/bin/with-contenv bash
+mkdir -p /config/log
+
+[ -f /config/netdata.conf ] || \
+  cp /default/netdata.conf /config
+
+# permissions
+chown -R abc:abc \
+	/config \
+  /usr/share/webapss/netdata \
+  /var/lib/netdata \
+  /var/cache/netdata
