@@ -22,7 +22,7 @@ RUN \
  apk add --no-cache ca-certificates openssl && \
  wget \
   -O netdata.zip \
-  https://github.com/firehol/netdata/archive/v$(netdata -v | awk '{print $2}').zip && \
+  https://github.com/firehol/netdata/archive/master.zip && \
 
  unzip netdata.zip && \
  mv netdata-*/python.d /usr/libexec/netdata/ && \
