@@ -3,7 +3,7 @@ mkdir -p /config/log
 
 if [ ! -e /config/netdata.conf ]; then
   cp /default/netdata.conf /config
-  cp /etc/netdata/* /config
+  cp -r /etc/netdata/* /config
 fi
 
 # permissions
