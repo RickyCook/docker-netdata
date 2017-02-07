@@ -1,8 +1,10 @@
 #!/usr/bin/with-contenv bash
 mkdir -p /config/log
 
-[ -f /config/netdata.conf ] || \
+if [ ! -e /config/netdata.conf ]; then
   cp /default/netdata.conf /config
+  cp /etc/netdata/* /config
+fi
 
 # permissions
 chown -R abc:abc \
