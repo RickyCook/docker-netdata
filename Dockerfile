@@ -7,9 +7,12 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 
 # install runtime packages
 RUN \
+ apk add --no-cache python3 \
  apk add --no-cache \
 	--repository http://nl.alpinelinux.org/alpine/edge/testing \
 	netdata && \
+
+ pip3 install pyyaml \
 
 # cleanup
  rm -rf \
