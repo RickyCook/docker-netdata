@@ -16,9 +16,9 @@ docker create \
   --name netdata \
   -e PUID=<UID> -e PGID=<GID> \
   -e TZ=<timezone> \
-  --cap-add SYS_PTRACE
   -v /proc:/host/proc:ro -v /sys:/host/sys:ro \
   -v </path/to/netdata/config>:/config \
+  -p 19999:19999 \
   thatpanda/netdata
 ```
 
@@ -30,10 +30,12 @@ So -p 8080:80 would expose port 80 from inside the container to be accessible fr
 http://192.168.x.x:8080 would show you what's running INSIDE the container on port 80.`
 
 
-* `-v /config` - netdata configs
+* `-v /config` netdata configs and logs
+* `-v /host/proc` and `-v /host/sys` to allow netdata to read data about the host
 * `-e PGID` for for GroupID - see below for explanation
 * `-e PUID` for for UserID - see below for explanation
 * `-e TZ` for timezone information, eg Europe/London
+* `-p 19999` web UI port
 
 It is based on alpine linux with s6 overlay, for shell access whilst the container is running do `docker exec -it netdata /bin/bash`.
 
@@ -50,7 +52,16 @@ In this instance `PUID=1001` and `PGID=1001`. To find yours use `id user` as bel
 
 ## Setting up the application 
 
-* TODO
+### Setting hostname
+
+* Start, then stop the container so that the config directory is populated
+* Edit `</path/to/netdata/config>/netdata.conf`, and add `  hostname = <your.hostname>`
+* Restart the container
+
+### Alarms and plugins
+
+Configuration files are copied to the config directory on first run. Manual
+config can be done after this.
 
 ## Info
 
@@ -66,5 +77,4 @@ In this instance `PUID=1001` and `PGID=1001`. To find yours use `id user` as bel
 
 ## Versions
 
-+ TODO
-+ **04.02.17:** Initial Release. 
++ **07.02.17:** Initial Release. 
